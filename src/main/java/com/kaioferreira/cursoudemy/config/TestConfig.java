@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.kaioferreira.cursoudemy.entities.Category;
 import com.kaioferreira.cursoudemy.entities.Order;
+import com.kaioferreira.cursoudemy.entities.OrderItem;
 import com.kaioferreira.cursoudemy.entities.Product;
 import com.kaioferreira.cursoudemy.entities.User;
 import com.kaioferreira.cursoudemy.entities.enums.OrderStatus;
 import com.kaioferreira.cursoudemy.repositories.CategoryRepository;
+import com.kaioferreira.cursoudemy.repositories.OrderItemRepository;
 import com.kaioferreira.cursoudemy.repositories.OrderRepository;
 import com.kaioferreira.cursoudemy.repositories.ProductRepository;
 import com.kaioferreira.cursoudemy.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired 
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -64,10 +69,16 @@ public class TestConfig implements CommandLineRunner {
 		
 		Order order1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), user1, OrderStatus.PAID);
 		Order order2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), user2, OrderStatus.WAITING_PAYMENT);
-		Order order3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), user1, OrderStatus.WAITING_PAYMENT);
-		
+		Order order3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), user1, OrderStatus.WAITING_PAYMENT);		
 		userRepository.saveAll(Arrays.asList(user1, user2));
 		orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+		
+		OrderItem oi1 = new OrderItem(order1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(order1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(order2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(order3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
 	}
 	
