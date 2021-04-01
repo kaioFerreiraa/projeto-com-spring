@@ -49,12 +49,12 @@ public class OrderItem implements Serializable {
 		id.setProduct(product);
 	}
 
-	public Integer getQuentity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuentity(Integer quentity) {
-		this.quantity = quentity;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Double getPrice() {
